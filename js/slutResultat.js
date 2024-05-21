@@ -1,7 +1,8 @@
+// Henter alle sectioner og step-box, så vi har referencen til dem fra index
 const sectioner = document.getElementsByTagName('section');
 const steps = document.getElementsByClassName('step-box');
 
-// Vi selecter de 3 gå videre knapper via deres id.
+// Vi selecter de 3 gå videre knapper via deres id, så vi kan enable dem når brugeren har valgt et input
 const button1 = document.querySelector('#choice1_button');
 const button2 = document.querySelector('#choice2_button');
 const button3 = document.querySelector('#choice3_button');
@@ -11,6 +12,7 @@ const inputChoice1 = 'input[name=choice1]';
 const inputChoice2 = 'input[name=choice2]';
 const inputChoice3 = 'input[name=choice3]';
 
+// Funktionen der tjekker om du har valgt en svarmulighed, for ellers kan du ikke gå videre.
 document.querySelectorAll(inputChoice1).forEach(function(input) {
     input.addEventListener('change', function() {
         const svar1 = tjekSvar1();
@@ -41,6 +43,7 @@ document.querySelectorAll(inputChoice3).forEach(function(input) {
     })
 });
 
+// Her ser vi hvilken side vi er på.
 let nuværendeIndex = 0;
 let nuværendeSection = sectioner[nuværendeIndex];
 let nuværendeStep = steps[nuværendeIndex];
@@ -49,6 +52,12 @@ let nuværendeStep = steps[nuværendeIndex];
 // Vi er kun intereseret i det sidste index, da vi derved kan finde ud af at vi er på sidste section.
 const sidsteIndex = sectioner.length - 1;
 
+// Vi tager nuværende section og skjuler den ved at give den klassen d-none.
+// Så tager vi nuværendes step og fjerner klassen active for at vise at den ikke er det aktive step længere.
+// Så forøger vi vores nuværende index med +1, og tager fat i den tilsvarende section og step.
+// Så tjekker vi om vi er på den sidste side.
+// Hvis vi er det, så beregner vi svaret.
+// Til sidst viser vi vores nye nuværende section og nuværende step som aktiv.
 function næsteSection() {
     nuværendeSection.classList.toggle('d-none');
     nuværendeStep.classList.toggle('active');
@@ -65,6 +74,7 @@ function næsteSection() {
     nuværendeStep.classList.toggle('active');
 }
 
+// Gå tilbage knappen.
 function forrigeSection() {
     nuværendeSection.classList.toggle('d-none');
     nuværendeStep.classList.toggle('active');
@@ -77,6 +87,7 @@ function forrigeSection() {
     nuværendeStep.classList.toggle('active');
 }
 
+// Her retunere vi svarene som brugeren har valgt på side 1, hvis brugeren ikke har valgt nogle svar, så returene den null (og de kan ikke gå videre).
 function tjekSvar1() {
     return document.querySelector(inputChoice1 + ':checked');
 }
@@ -89,6 +100,7 @@ function tjekSvar3() {
     return document.querySelector(inputChoice3 + ':checked');
 }
 
+// Her har vi defineret svarene ud fra hvad de vælger.
 function beregnSvar() {
     const svarmuligheder = {
         'Segmentering': {
@@ -111,14 +123,19 @@ function beregnSvar() {
         },
     }
 
+    // Svar 1 er nu hvad end de har valgt i spørgsmål 1.
     const svar1 = tjekSvar1();
     const svar2 = tjekSvar2();
     const svar3 = tjekSvar3();
 
+    // Her omdanner jeg svaret til en kategori.
     const beregnetSvar1 = beregnIndividueltSvar(svar1);
     const beregnetSvar2 = beregnIndividueltSvar(svar2);
     const beregnetSvar3 = beregnIndividueltSvar(svar3);
 
+    // Hvis jeg har svaret det samme på side 1, som på side 2, så er det slutsvar 1 den skal vise til sidst.
+    // Hvis jeg har svaret det samme på side 1, som på side 3, så er det slutsvar 1 den også skal vise til sidst.
+    // Hvis jeg har svaret det samme på side 2, som på side 3, så er det slutsvar 2 den skal vise til sidst.
     let svar;
 
     if (beregnetSvar1 === beregnetSvar2 || beregnetSvar1 === beregnetSvar3) {
@@ -130,10 +147,12 @@ function beregnSvar() {
         svar = svarmuligheder['Fulfilment'];
     }
 
+    // Her sætter vi overskrift ind på overskrift og brødtekst ind på brødtekst.
     document.querySelector('#overskrift').textContent = svar.overskrift;
     document.querySelector('#brødtekst').textContent = svar.brødtekst;
 }
 
+// Her omdanner vi IDet på svaret, til en kategori.
 function beregnIndividueltSvar(svar) {
     if (svar.id.endsWith('1')) {
         return 'Segmentering';

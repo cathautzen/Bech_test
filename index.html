@@ -6,7 +6,7 @@
 	<title>Bech A/S - Se hvilken løsning der passer til dig</title>
 	
 	<meta name="robots" content="All">
-	<meta name="author" content="Udgiver">
+	<meta name="author" content="Cathrine Autzen og Lea Heuser">
 	<meta name="copyright" content="Information om copyright">
 	
 	<link href="css/styles.css" rel="stylesheet" type="text/css">
@@ -16,6 +16,7 @@
 
 <body>
 
+<!--Navigationsbar i toppen-->
 <nav class="navbar navbar-light bg-light">
 	<div class="container">
 		<a class="navbar-brand" href="#">
@@ -28,6 +29,7 @@
 </nav>
 
 <main>
+<!--	Progrationsindekator (Der viser hvor henne i testen du er)-->
 	<div class="container">
 		<div class="row mt-5 mb-4 justify-content-center">
 			<div class="container d-flex justify-content-center w-50">
@@ -52,6 +54,7 @@
 		</div>
 	</div>
 
+<!--	Første section / forside -->
 	<section class="container">
 		<h1 class="text-center">Løsningstesten</h1>
 		<p>Vi har sammensæt 4 hurtige spørgsmål, der skal gøre dig klogere på, hvillken løsning, der passer til din virksomhed.</p>
@@ -163,6 +166,8 @@
 		<button type="button" class="btn btn-darkgreen" onclick="forrigeSection()">Tilbage</button>
 		<button type="button" class="btn btn-orange" onclick="næsteSection()" id="choice3_button" disabled>Næste</button>
 	</section>
+
+<!--	Sidste side med svar efter test-->
 	<section class="container d-none">
 		<h1 id="overskrift"></h1>
 		<p id="brødtekst"></p>
@@ -175,7 +180,9 @@
 	</section>
 </main>
 
+<!--Javascript fra bootstrap -->
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--Egen javascript fil -->
 <script src="js/slutResultat.js"></script>
 </body>
 </html>
