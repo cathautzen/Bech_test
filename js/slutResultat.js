@@ -90,13 +90,48 @@ function tjekSvar3() {
 }
 
 function beregnSvar() {
+    const svarmuligheder = {
+        'Segmentering': {
+            overskrift: 'Hjælp til dine kampagner',
+            brødtekst: 'Det lyder til at du står og mangler hjælp til din kampagne, med alt hvad det indebære. Alt lige fra segmentering til addressering. Det kan vi hjælpe med, hos Bech. Når vi håndterer adresseringen af jeres tryksager, er det forbundet med fortrolighed og tillid til at håndtere kundedatabaser med oplysninger om bopæl og andre personlige oplysninger. Vi har ISAE 3000 erklæring, så jeres data er i sikkerhed hos os.'
+        },
+        'Print': {
+            overskrift: 'Printet og pakket',
+            brødtekst: 'Det lyder til at du står og har brug for at få printet og pakket dine opgaver. Hos Bech A/S har vi forskellige moderne produktionsprintere og kan klare stort set alt inden for digitaltryk. Vi printer og pakker stort set alle typer materialer på kort tid. Vi har topmoderne udstyr til at printe, kuvertere og pakke forsendelser, hvilket betyder, at vi kan tilbyde dig to vigtige ting: En enorm printkapacitet og unikke løsninger til lige netop dine behov.'
+        },
+        'Forsendelse - lagerhotel': {
+            overskrift: 'Forsendelse og Lager',
+            brødtekst: 'Det lyder til at du står og mangler en ansvarlig for dine materialer og forsendelser. Hos os har du mulighed for at få opbevaret dine tryksager på vores lager. Du får altså nogle hyldemeter hos os til at have tryksager liggende. Det betyder, at der spares en række omkostninger til transport og ikke mindst tid. Når tryksagerne ligger på lager hos os, kan vi tage materialer direkte fra lager til en opgave – så bliver den meget hurtigere ekspederet.'
+        },
+        'Fulfilment': {
+            overskrift: 'Lidt af det hele',
+            brødtekst: 'Det lyder til at det er en all-around løsning vi skal have lavet. Fulfilment er en ydelse, som vi sammensætter i samarbejde med dig. Måske du har brug for en fast aftale i forhold til at have materialer på lager hos os, samtidig med du har regelmæssigt behov for at få trykt flyers til potentielle kunder – mulighederne er mange.\n' +
+                '\n' +
+                'Den, måske, største gevinst ved fulfilment for vores dig er, at det kan lette din arbejdsbyrde. Ved at flytte flere dele af processen med at klargøre materialer, printe flyers, eller noget helt tredje væk fra din virksomheden og over til os, bliver I mere effektive.'
+        },
+    }
+
     const svar1 = tjekSvar1();
     const svar2 = tjekSvar2();
     const svar3 = tjekSvar3();
 
-    console.log(svar1.id);
-    console.log(svar2.id);
-    console.log(svar3.id);
+    const beregnetSvar1 = beregnIndividueltSvar(svar1);
+    const beregnetSvar2 = beregnIndividueltSvar(svar2);
+    const beregnetSvar3 = beregnIndividueltSvar(svar3);
+
+    let svar;
+
+    if (beregnetSvar1 === beregnetSvar2 || beregnetSvar1 === beregnetSvar3) {
+        svar = svarmuligheder[beregnetSvar1];
+    } else if (beregnetSvar2 === beregnetSvar3) {
+        svar = svarmuligheder[beregnetSvar2];
+    } else {
+        // Hvis ingen af svarene er ens, så returnere vi fulfilment!
+        svar = svarmuligheder['Fulfilment'];
+    }
+
+    document.querySelector('#overskrift').textContent = svar.overskrift;
+    document.querySelector('#brødtekst').textContent = svar.brødtekst;
 }
 
 function beregnIndividueltSvar(svar) {
