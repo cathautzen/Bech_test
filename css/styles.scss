@@ -1,0 +1,43 @@
+// 1. Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "../node_modules/bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+$link-decoration: none;
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/variables-dark";
+
+// Gemmer farver som variabler så vi kan referer til dem længere nede
+$darkblue: #086276;
+$lightgreen: #517E79;
+$darkgreen: #245F51;
+$orange: #FFA123;
+$lightblue: #8CB1B5;
+
+// 4. Include any default map overrides here
+$custom-colors: (
+	"darkblue": $darkblue,
+	"lightgreen": $lightgreen,
+	"darkgreen": $darkgreen,
+	"orange": $orange,
+	"lightblue": $lightblue,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "bootstrapComponents";
+
+// 5. Du kan lave styling her...
+
+
+/* step by step kasserne */
+.step-box {
+	height: 10px;
+	width: 10px;
+	background-color: $darkblue;
+
+	&.active {
+		background-color: $orange;
+	}
+}
